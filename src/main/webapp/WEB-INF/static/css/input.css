@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+input {
+	padding: 10px;
+    font-size: 13px;
+    width: 400px;
+    margin: 7px;
+    margin-left: 0px;
+    border-radius: 5px;
+    border: 1px solid #aaaaFF;
+}
+
+input.invalid {
+	background-color: #ecb9d1;
+	color: #c23478;
+}
+
+input.valid {
+	background-color: #a2eca7;
+	color: #74a879;'
+}
