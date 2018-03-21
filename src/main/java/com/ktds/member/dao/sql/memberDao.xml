@@ -7,6 +7,18 @@
 <mapper namespace="MemberDao">
 
 	<!-- 인터페이스에있는 메소드 이름 -->
+	<select id="selectCountMemberEmail" parameterType="string" resultType="_int">
+		SELECT	COUNT(ID)
+		FROM	MEMBER
+		WHERE	EMAIL = #{email}
+	</select>
+	
+	<select id="selectCountMemberNickname" parameterType="string" resultType="_int">
+		SELECT	COUNT(ID)
+		FROM	MEMBER
+		WHERE	NICKNAME = #{nickname}
+	</select>
+	
 	<insert id="insertMember" parameterType="MemberVO">
 		INSERT INTO MEMBER (
 			ID
@@ -14,6 +26,7 @@
 			, NICKNAME
 			, PASSWORD
 			, REGIST_DATE
+			, SALT
 		)
 		VALUES (
 			MEMBER_ID_SEQ.NEXTVAL
@@ -21,15 +34,23 @@
 			, #{nickname}
 			, #{password}
 			, SYSDATE
+			, #{salt}
 		)
 	
 	</insert>
+	
+	<select id="selectSalt" parameterType="string" resultType="string">
+		SELECT	NVL(SALT, '')
+		FROM	MEMBER
+		WHERE	EMAIL = #{email}
+	</select>
 	
 	<select id="selectMember" parameterType="MemberVO" resultType="MemberVO">
 		SELECT	ID
 				, EMAIL
 				, NICKNAME
 				, REGIST_DATE registDate
+				, SALT
 		FROM	MEMBER
 		WHERE	EMAIL = #{email}
 		AND		PASSWORD = #{password}
